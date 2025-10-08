@@ -30,7 +30,6 @@ def split_into_sentences(text: str):
     text = text.strip()
     if not text:
         return []
-    # Разбиваем по границе: символ конца предложения + пробелы
     parts = re.split(r'(?<=[.!?])\s+', text)
     parts = [p.strip() for p in parts if p.strip()]
     if not parts:
@@ -57,7 +56,6 @@ def take_sentences_within_limit(sentences, max_words):
     for s in sentences:
         w = count_words(s)
         if total == 0 and w > max_words:
-            # Первый длинный абзац — вернём его целиком (не обрываем)
             return [s]
         if total + w > max_words:
             break
@@ -117,7 +115,6 @@ def make_final_description(short_desc: str, raw_model_output: str) -> str:
         if filler_idx > 10:
             break
 
-    # В крайнем случае, если всё ещё слишком длинно (> MAX_WORDS) и мы имели несколько предложений,
-    # можно попытаться оставить те предложения, которые умещаются в MAX_WORDS (уже сделано).
     final = normalize_whitespace(current_text)
     return final
+
